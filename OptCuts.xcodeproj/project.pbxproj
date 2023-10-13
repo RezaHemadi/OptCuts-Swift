@@ -7,14 +7,90 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F532991B2A49F0D5009358E7 /* cut_to_disk.swift in Sources */ = {isa = PBXBuildFile; fileRef = F532991A2A49F0D5009358E7 /* cut_to_disk.swift */; };
+		F532991F2A4B2461009358E7 /* IglUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = F532991E2A4B2461009358E7 /* IglUtils.swift */; };
+		F552D0BB2AD98BF6003C72A0 /* Functions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F552D0BA2AD98BF6003C72A0 /* Functions.swift */; };
+		F552D0C02AD99693003C72A0 /* IO.swift in Sources */ = {isa = PBXBuildFile; fileRef = F552D0BF2AD99693003C72A0 /* IO.swift */; };
+		F56A52442A446554007CA4FB /* GeometryProcessing.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F56A52422A44654E007CA4FB /* GeometryProcessing.framework */; };
+		F56A52452A446554007CA4FB /* GeometryProcessing.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = F56A52422A44654E007CA4FB /* GeometryProcessing.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		F56A52492A458732007CA4FB /* Shared.swift in Sources */ = {isa = PBXBuildFile; fileRef = F56A52482A458732007CA4FB /* Shared.swift */; };
 		F5B8A7522A41B3DE00D47C82 /* OptCuts.docc in Sources */ = {isa = PBXBuildFile; fileRef = F5B8A7512A41B3DE00D47C82 /* OptCuts.docc */; };
 		F5B8A7532A41B3DE00D47C82 /* OptCuts.h in Headers */ = {isa = PBXBuildFile; fileRef = F5B8A7502A41B3DE00D47C82 /* OptCuts.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F5B8A75A2A41B99A00D47C82 /* Energy.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5B8A7592A41B99A00D47C82 /* Energy.swift */; };
+		F5B8A75C2A41BA1D00D47C82 /* SymDirichletEnergy.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5B8A75B2A41BA1D00D47C82 /* SymDirichletEnergy.swift */; };
+		F5B8A75E2A41BA6000D47C82 /* CHOLMODSolver.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5B8A75D2A41BA6000D47C82 /* CHOLMODSolver.swift */; };
+		F5B8A7602A41BA9400D47C82 /* EigenLibSolver.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5B8A75F2A41BA9400D47C82 /* EigenLibSolver.swift */; };
+		F5B8A7622A41BADB00D47C82 /* LinSysSolver.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5B8A7612A41BADB00D47C82 /* LinSysSolver.swift */; };
+		F5B8A7642A41BAFD00D47C82 /* PardisoSolver.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5B8A7632A41BAFD00D47C82 /* PardisoSolver.swift */; };
+		F5B8A76A2A41BBAC00D47C82 /* Optimizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5B8A7692A41BBAC00D47C82 /* Optimizer.swift */; };
+		F5B8A76C2A41BBC300D47C82 /* Scaffold.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5B8A76B2A41BBC300D47C82 /* Scaffold.swift */; };
+		F5B8A76E2A41BBEA00D47C82 /* TriMesh.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5B8A76D2A41BBEA00D47C82 /* TriMesh.swift */; };
+		F5B8A7702A41BC0D00D47C82 /* Types.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5B8A76F2A41BC0D00D47C82 /* Types.swift */; };
+		F5B8A7782A41BDCE00D47C82 /* Matrix.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F5B8A7772A41BDC800D47C82 /* Matrix.framework */; };
+		F5B8A7792A41BDCE00D47C82 /* Matrix.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = F5B8A7772A41BDC800D47C82 /* Matrix.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		F5B8A77C2A41FDFB00D47C82 /* Primitive.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5B8A77B2A41FDFB00D47C82 /* Primitive.swift */; };
+		F5B8A77E2A422AEF00D47C82 /* Pair.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5B8A77D2A422AEF00D47C82 /* Pair.swift */; };
+		F5DB6F0F2A9F746F00E2337F /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5DB6F0E2A9F746F00E2337F /* Utilities.swift */; };
+		F5E793292AD8921F004FCCBB /* parameterize.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5E793282AD8921F004FCCBB /* parameterize.swift */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		F56A52412A44654E007CA4FB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F56A523C2A44654E007CA4FB /* GeometryProcessing.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = F5B8A7892A42EB8C00D47C82;
+			remoteInfo = GeometryProcessing;
+		};
+		F5B8A7762A41BDC800D47C82 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F5B8A7722A41BDC800D47C82 /* Matrix.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = F51B41202A114630007CD349;
+			remoteInfo = Matrix;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		F5B8A77A2A41BDCE00D47C82 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				F5B8A7792A41BDCE00D47C82 /* Matrix.framework in Embed Frameworks */,
+				F56A52452A446554007CA4FB /* GeometryProcessing.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
+		F532991A2A49F0D5009358E7 /* cut_to_disk.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = cut_to_disk.swift; sourceTree = "<group>"; };
+		F532991E2A4B2461009358E7 /* IglUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IglUtils.swift; sourceTree = "<group>"; };
+		F552D0BA2AD98BF6003C72A0 /* Functions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Functions.swift; sourceTree = "<group>"; };
+		F552D0BF2AD99693003C72A0 /* IO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IO.swift; sourceTree = "<group>"; };
+		F56A523C2A44654E007CA4FB /* GeometryProcessing.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = GeometryProcessing.xcodeproj; path = ../GeometryProcessing/GeometryProcessing.xcodeproj; sourceTree = "<group>"; };
+		F56A52482A458732007CA4FB /* Shared.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shared.swift; sourceTree = "<group>"; };
 		F5B8A74D2A41B3DE00D47C82 /* OptCuts.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = OptCuts.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F5B8A7502A41B3DE00D47C82 /* OptCuts.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OptCuts.h; sourceTree = "<group>"; };
 		F5B8A7512A41B3DE00D47C82 /* OptCuts.docc */ = {isa = PBXFileReference; lastKnownFileType = folder.documentationcatalog; path = OptCuts.docc; sourceTree = "<group>"; };
+		F5B8A7592A41B99A00D47C82 /* Energy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Energy.swift; sourceTree = "<group>"; };
+		F5B8A75B2A41BA1D00D47C82 /* SymDirichletEnergy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SymDirichletEnergy.swift; sourceTree = "<group>"; };
+		F5B8A75D2A41BA6000D47C82 /* CHOLMODSolver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CHOLMODSolver.swift; sourceTree = "<group>"; };
+		F5B8A75F2A41BA9400D47C82 /* EigenLibSolver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EigenLibSolver.swift; sourceTree = "<group>"; };
+		F5B8A7612A41BADB00D47C82 /* LinSysSolver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinSysSolver.swift; sourceTree = "<group>"; };
+		F5B8A7632A41BAFD00D47C82 /* PardisoSolver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PardisoSolver.swift; sourceTree = "<group>"; };
+		F5B8A7692A41BBAC00D47C82 /* Optimizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Optimizer.swift; sourceTree = "<group>"; };
+		F5B8A76B2A41BBC300D47C82 /* Scaffold.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Scaffold.swift; sourceTree = "<group>"; };
+		F5B8A76D2A41BBEA00D47C82 /* TriMesh.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TriMesh.swift; sourceTree = "<group>"; };
+		F5B8A76F2A41BC0D00D47C82 /* Types.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Types.swift; sourceTree = "<group>"; };
+		F5B8A7722A41BDC800D47C82 /* Matrix.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Matrix.xcodeproj; path = ../Matrix/Matrix.xcodeproj; sourceTree = "<group>"; };
+		F5B8A77B2A41FDFB00D47C82 /* Primitive.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Primitive.swift; sourceTree = "<group>"; };
+		F5B8A77D2A422AEF00D47C82 /* Pair.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pair.swift; sourceTree = "<group>"; };
+		F5DB6F0E2A9F746F00E2337F /* Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
+		F5E793282AD8921F004FCCBB /* parameterize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = parameterize.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -22,17 +98,28 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F5B8A7782A41BDCE00D47C82 /* Matrix.framework in Frameworks */,
+				F56A52442A446554007CA4FB /* GeometryProcessing.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		F56A523D2A44654E007CA4FB /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				F56A52422A44654E007CA4FB /* GeometryProcessing.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		F5B8A7432A41B3DE00D47C82 = {
 			isa = PBXGroup;
 			children = (
 				F5B8A74F2A41B3DE00D47C82 /* OptCuts */,
 				F5B8A74E2A41B3DE00D47C82 /* Products */,
+				F5B8A7712A41BDC800D47C82 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -48,9 +135,69 @@
 			isa = PBXGroup;
 			children = (
 				F5B8A7502A41B3DE00D47C82 /* OptCuts.h */,
+				F5B8A7682A41BB4700D47C82 /* Utils */,
 				F5B8A7512A41B3DE00D47C82 /* OptCuts.docc */,
+				F5B8A7662A41BB2B00D47C82 /* Energy */,
+				F5B8A7652A41BB1900D47C82 /* LinSysSolver */,
+				F56A52482A458732007CA4FB /* Shared.swift */,
+				F5B8A7692A41BBAC00D47C82 /* Optimizer.swift */,
+				F5B8A76B2A41BBC300D47C82 /* Scaffold.swift */,
+				F5B8A76F2A41BC0D00D47C82 /* Types.swift */,
+				F5B8A76D2A41BBEA00D47C82 /* TriMesh.swift */,
+				F5B8A77D2A422AEF00D47C82 /* Pair.swift */,
+				F5B8A77B2A41FDFB00D47C82 /* Primitive.swift */,
+				F5DB6F0E2A9F746F00E2337F /* Utilities.swift */,
+				F5E793282AD8921F004FCCBB /* parameterize.swift */,
+				F552D0BA2AD98BF6003C72A0 /* Functions.swift */,
+				F552D0BF2AD99693003C72A0 /* IO.swift */,
 			);
 			path = OptCuts;
+			sourceTree = "<group>";
+		};
+		F5B8A7652A41BB1900D47C82 /* LinSysSolver */ = {
+			isa = PBXGroup;
+			children = (
+				F5B8A75D2A41BA6000D47C82 /* CHOLMODSolver.swift */,
+				F5B8A75F2A41BA9400D47C82 /* EigenLibSolver.swift */,
+				F5B8A7612A41BADB00D47C82 /* LinSysSolver.swift */,
+				F5B8A7632A41BAFD00D47C82 /* PardisoSolver.swift */,
+			);
+			path = LinSysSolver;
+			sourceTree = "<group>";
+		};
+		F5B8A7662A41BB2B00D47C82 /* Energy */ = {
+			isa = PBXGroup;
+			children = (
+				F5B8A7592A41B99A00D47C82 /* Energy.swift */,
+				F5B8A75B2A41BA1D00D47C82 /* SymDirichletEnergy.swift */,
+			);
+			path = Energy;
+			sourceTree = "<group>";
+		};
+		F5B8A7682A41BB4700D47C82 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				F532991A2A49F0D5009358E7 /* cut_to_disk.swift */,
+				F532991E2A4B2461009358E7 /* IglUtils.swift */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
+		F5B8A7712A41BDC800D47C82 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				F56A523C2A44654E007CA4FB /* GeometryProcessing.xcodeproj */,
+				F5B8A7722A41BDC800D47C82 /* Matrix.xcodeproj */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		F5B8A7732A41BDC800D47C82 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				F5B8A7772A41BDC800D47C82 /* Matrix.framework */,
+			);
+			name = Products;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -75,6 +222,7 @@
 				F5B8A7492A41B3DE00D47C82 /* Sources */,
 				F5B8A74A2A41B3DE00D47C82 /* Frameworks */,
 				F5B8A74B2A41B3DE00D47C82 /* Resources */,
+				F5B8A77A2A41BDCE00D47C82 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -110,12 +258,39 @@
 			mainGroup = F5B8A7432A41B3DE00D47C82;
 			productRefGroup = F5B8A74E2A41B3DE00D47C82 /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = F56A523D2A44654E007CA4FB /* Products */;
+					ProjectRef = F56A523C2A44654E007CA4FB /* GeometryProcessing.xcodeproj */;
+				},
+				{
+					ProductGroup = F5B8A7732A41BDC800D47C82 /* Products */;
+					ProjectRef = F5B8A7722A41BDC800D47C82 /* Matrix.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				F5B8A74C2A41B3DE00D47C82 /* OptCuts */,
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		F56A52422A44654E007CA4FB /* GeometryProcessing.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = GeometryProcessing.framework;
+			remoteRef = F56A52412A44654E007CA4FB /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		F5B8A7772A41BDC800D47C82 /* Matrix.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = Matrix.framework;
+			remoteRef = F5B8A7762A41BDC800D47C82 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		F5B8A74B2A41B3DE00D47C82 /* Resources */ = {
@@ -132,7 +307,26 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F5E793292AD8921F004FCCBB /* parameterize.swift in Sources */,
+				F56A52492A458732007CA4FB /* Shared.swift in Sources */,
+				F5B8A76E2A41BBEA00D47C82 /* TriMesh.swift in Sources */,
+				F552D0C02AD99693003C72A0 /* IO.swift in Sources */,
+				F5B8A7622A41BADB00D47C82 /* LinSysSolver.swift in Sources */,
+				F5B8A75C2A41BA1D00D47C82 /* SymDirichletEnergy.swift in Sources */,
+				F5B8A77E2A422AEF00D47C82 /* Pair.swift in Sources */,
+				F5B8A7642A41BAFD00D47C82 /* PardisoSolver.swift in Sources */,
+				F532991F2A4B2461009358E7 /* IglUtils.swift in Sources */,
 				F5B8A7522A41B3DE00D47C82 /* OptCuts.docc in Sources */,
+				F5B8A76C2A41BBC300D47C82 /* Scaffold.swift in Sources */,
+				F5B8A75A2A41B99A00D47C82 /* Energy.swift in Sources */,
+				F552D0BB2AD98BF6003C72A0 /* Functions.swift in Sources */,
+				F5DB6F0F2A9F746F00E2337F /* Utilities.swift in Sources */,
+				F5B8A77C2A41FDFB00D47C82 /* Primitive.swift in Sources */,
+				F5B8A76A2A41BBAC00D47C82 /* Optimizer.swift in Sources */,
+				F532991B2A49F0D5009358E7 /* cut_to_disk.swift in Sources */,
+				F5B8A75E2A41BA6000D47C82 /* CHOLMODSolver.swift in Sources */,
+				F5B8A7702A41BC0D00D47C82 /* Types.swift in Sources */,
+				F5B8A7602A41BA9400D47C82 /* EigenLibSolver.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -284,6 +478,9 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.Thingoteam.OptCuts;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SUPPORTS_MACCATALYST = YES;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -315,6 +512,9 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.Thingoteam.OptCuts;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SUPPORTS_MACCATALYST = YES;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
