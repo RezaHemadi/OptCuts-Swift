@@ -539,3 +539,58 @@ func postDrawFunc() -> Bool {
     
     return false
 }
+
+func cleanup() {
+    filterExp_in = 0.6
+    energyChanges_bSplit.removeAll()
+    energyChanges_iSplit.removeAll()
+    energyChanges_merge.removeAll()
+    paths_bSplit.removeAll()
+    paths_iSplit.removeAll()
+    paths_merge.removeAll()
+    inSplitTotalAmt = 0
+    triSoup.removeAll()
+    V = .init()
+    UV = .init()
+    N = .init()
+    F = .init()
+    FUV = .init()
+    FN = .init()
+    vertAmt_input = 0
+    triSoup_backup = .init()
+    optimizer = nil
+    energyTerms.removeAll()
+    lambda_init = .zero
+    optimization_on = false
+    iterNum = 0
+    converged = 0
+    fractureMode = false
+    fracThres = 0.0
+    topoLineSearch = true
+    initCutOption = 0
+    outerLoopFinished = false
+    upperBound = 4.1
+    opType_queried = -1
+    path_queried.removeAll()
+    newVertPos_queried = .init()
+    reQuery = false
+    iterNum_bestFeasible = -1
+    triSoup_bestFeasible = .init()
+    E_se_bestFeasible = __DBL_MAX__
+    lastStationaryIterNum = 0
+    configs_stationaryV.removeAll()
+   // save info at first feasible stationary VT for comparison
+    saved = false
+    start = nil
+
+   // predraw func statics
+   // save info once bound is reached for comparison
+    preDrawSaved = false
+    outputFolderPath = nil
+    
+    for i in 0..<energyParams.count {
+        energyParams[i].deallocate()
+    }
+    
+    energyParams.removeAll()
+}

@@ -9,9 +9,14 @@ import Foundation
 import Matrix
 import GeometryProcessing
 
+private let HessianCoefMaxCount: Int = 50_000
+
 /// A class for solving an optimization problem
  class Optimizer {
     // MARK: - Properties
+     private var I: Vec<Int> = .init()
+     private var J: Vec<Int> = .init()
+     private var V: Vec<Double> = .init()
     
     // these data are references
     private let data0: TriMesh // Initial guess
@@ -41,7 +46,7 @@ import GeometryProcessing
     private var V_mtr = Vec<Double>()
     private var Hessian: Mat<Double> = .init() // when using dense representation
     // cholesky solver for solving the linear system for search directions
-    private let linSysSolver: LinSysSolver<Vec<Int>, Vec<Double>>
+    private var linSysSolver: LinSysSolver<Vec<Int>, Vec<Double>>!
     //private let denseSolver: Eigen::LDLT<Eigen::MatrixXd>
     private var gradient = Vec<Double>() // energy gradient computed in each iteration
     private var searchDir = Vec<Double>() // search direction computed in each iteration
@@ -122,8 +127,13 @@ import GeometryProcessing
         E_scaffold = .init(E, E.rows, E.cols)
         bnd_scaffold = .init(bnd, bnd.rows, bnd.cols)
         w_scaf = energyParams[0].pointee * 0.01
-        
-        linSysSolver = EigenLibSolver<Vec<Int>, Vec<Double>>()
+         
+         if !p_useDense {
+             linSysSolver = EigenLibSolver<Vec<Int>, Vec<Double>>()
+             I.reserveCapacity(HessianCoefMaxCount)
+             J.reserveCapacity(HessianCoefMaxCount)
+             V.reserveCapacity(HessianCoefMaxCount)
+         }
     }
     
     // MARK: - Methods
@@ -588,7 +598,7 @@ import GeometryProcessing
         }
         
         var lastEnergyVal_scaffold: Double = 0.0
-        var resultV0: Matd = .init(result.V, result.V.rows, result.V.cols)
+        let resultV0: Matd = .init(result.V, result.V.rows, result.V.cols)
         var scaffoldV0: Matd = .init()
         if (scaffolding) {
             scaffoldV0 = .init(scaffold.airMesh.V, scaffold.airMesh.V.rows, scaffold.airMesh.V.cols)
@@ -610,7 +620,7 @@ import GeometryProcessing
             computeEnergyVal(result, scaffold, &testingE)
         }
         if (!mute) {
-            print("\(stepSize) \"(armijo)\"")
+            //print("\(stepSize) \"(armijo)\"")
         }
         
         while (!result.checkInversion() || (scaffolding && !scaffold.airMesh.checkInversion() )) {
@@ -663,10 +673,18 @@ import GeometryProcessing
         }
         //assert(data.V.rows == result.V.rows)
         
+        /*
         for vI in 0..<data.V.rows {
             data.V[vI, 0] = dataV0[vI, 0] + stepSize * searchDir[vI * 2]
             data.V[vI, 1] = dataV0[vI, 1] + stepSize * searchDir[vI * 2 + 1]
-        }
+        }*/
+         withUnsafeMutablePointer(to: &data.V) { vPtr in
+             DispatchQueue.concurrentPerform(iterations: vPtr.pointee.rows) { vI in
+                 vPtr.pointee[vI, 0] = dataV0[vI, 0] + stepSize * searchDir[vI * 2]
+                 vPtr.pointee[vI, 1] = dataV0[vI, 1] + stepSize * searchDir[vI * 2 + 1]
+             }
+         }
+         
         if (scaffolding) {
             scaffoldData.stepForward(scaffoldV0, searchDir, stepSize)
         }
@@ -698,7 +716,7 @@ import GeometryProcessing
         }
     }
     
-     func computeGradient(_ data: TriMesh,
+    func computeGradient(_ data: TriMesh,
                          _ scaffoldData: Scaffold,
                          _ gradient: inout Vec<Double>,
                          _ excludeScaffold: Bool = false) {
@@ -743,23 +761,42 @@ import GeometryProcessing
             J_mtr.resize(0)
             V_mtr.resize(0)
             for eI in 0..<energyTerms.count {
+                I.resize(0)
+                J.resize(0)
+                V.resize(0)
+                /*
                 var I = Vec<Int>()
+                I.reserveCapacity(HessianCoefMaxCount)
                 var J = Vec<Int>()
+                J.reserveCapacity(HessianCoefMaxCount)
                 var V = Vec<Double>()
+                V.reserveCapacity(HessianCoefMaxCount)*/
                 energyTerms[eI].computeHessian(data, &V, &I, &J)
                 V *= energyParams[eI].pointee
+                /*
                 I_mtr.conservativeResize(I_mtr.count + I.count)
                 I_mtr.bottomRows(I.count) <<== I
                 J_mtr.conservativeResize(J_mtr.count + J.count)
                 J_mtr.bottomRows(J.count) <<== J
                 V_mtr.conservativeResize(V_mtr.count + V.count)
-                V_mtr.bottomRows(V.count) <<== V
+                V_mtr.bottomRows(V.count) <<== V*/
+                
+                I_mtr = .init(I, I.rows, I.cols)
+                J_mtr = .init(J, J.rows, J.cols)
+                V_mtr = .init(V, V.rows, V.cols)
             }
             if (scaffolding) {
                 let SD = SymDirichletEnergy()
+                I.resize(0)
+                J.resize(0)
+                V.resize(0)
+                /*
                 var I = Vec<Int>()
+                I.reserveCapacity(HessianCoefMaxCount)
                 var J = Vec<Int>()
+                J.reserveCapacity(HessianCoefMaxCount)
                 var V = Vec<Double>()
+                V.reserveCapacity(HessianCoefMaxCount)*/
                 SD.computeHessian(scaffoldData.airMesh, &V, &I, &J, true)
                 scaffoldData.augmentProxyMatrix(&I_mtr, &J_mtr, &V_mtr, I, J, V, w_scaf / Double(scaffold.airMesh.F.rows))
             }

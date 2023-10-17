@@ -431,6 +431,7 @@ extension Matrix where Element: Equatable {
         symMtr = solver.eigenVectors * D * solver.eigenVectors.transpose()*/
         
         let solver = try SelfAdjointEigenSolver(squareMatrix: symMtr)
+         
         if (solver.eigenValues[0] >= 0.0) {
             return
         }

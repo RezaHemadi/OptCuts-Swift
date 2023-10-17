@@ -132,6 +132,8 @@ import Matrix
             (triHessians + triI).initialize(to: Mat6d())
             (vInds + triI).initialize(to: Vec3i())
             let curHessian = triHessians + triI
+            let mat2dIdentity = Mat2d.Identity()
+            let triAreaSq = data.triAreaSq[triI]
             
             let triVInd: Vec3i = data.F.row(triI)
             let U1: Vec2d = data.V.row(triVInd[0])
@@ -142,7 +144,7 @@ import Matrix
             let U3m1: Vec2d = U3 - U1
             
             let area_U = 0.5 * (U2m1[0] * U3m1[1] - U2m1[1] * U3m1[0])
-            let areaRatio = data.triAreaSq[triI] / area_U / area_U / area_U
+            let areaRatio = triAreaSq / area_U / area_U / area_U
             let dAreaRatio_div_dArea_mult: Double = 3.0 / 2.0 * areaRatio / area_U
             
             let w: Double = (uniformWeight ? 1.0 : (data.triArea[triI] / normalizer_div))
@@ -152,7 +154,7 @@ import Matrix
             let e0dote1_div_dbAreaSq: Double = data.e0dote1_div_dbAreaSq[triI]
             
             // compute energy terms
-            let leftTerm: Double = 1.0 + data.triAreaSq[triI] / area_U / area_U
+            let leftTerm: Double = 1.0 + triAreaSq / area_U / area_U
             let rightTerm: Double = (U3m1.squaredNorm() * e0SqLen_div_dbAreaSq + U2m1.squaredNorm() * e1SqLen_div_dbAreaSq) / 2.0 - U3m1.dot(U2m1) * e0dote1_div_dbAreaSq
             
             let edge_oppo1: Vec2d = U3 - U2
@@ -178,51 +180,54 @@ import Matrix
             let d2Left11: Mat2d = dAreaRatio_div_dArea_mult * edge_oppo1_Ortho * edge_oppo1_Ortho.transpose()
             let d2Right11: Double = (e0SqLen_div_dbAreaSq + e1SqLen_div_dbAreaSq - 2.0 * e0dote1_div_dbAreaSq)
             let dLeft1dRight1T: Mat2d = dLeft1 * dRight1.transpose()
-            var exp1: Mat2d = d2Left11 * rightTerm + dLeft1dRight1T
-            var exp2: Mat2d = Mat2d.Identity() * d2Right11 * leftTerm
-            var exp3: Mat2d = dLeft1dRight1T.transpose()
+            let exp1: Mat2d = d2Left11 * rightTerm + dLeft1dRight1T
+            let exp2: Mat2d = mat2dIdentity * d2Right11 * leftTerm
+            let exp3: Mat2d = dLeft1dRight1T.transpose()
             curHessian.pointee.block(0, 0, 2, 2) <<== w * (exp1 + exp2 + exp3)
             let d2Left12: Mat2d = dAreaRatio_div_dArea_mult * edge_oppo1_Ortho * edge_oppo2_Ortho.transpose() + areaRatio * dOrtho_div_dU
             let d2Right12: Double = (e0dote1_div_dbAreaSq - e1SqLen_div_dbAreaSq)
-            exp1 = d2Left12 * rightTerm + dLeft1 * dRight2.transpose()
-            exp2 = Mat2d.Identity() * d2Right12 * leftTerm
-            exp3 = dRight1 * dLeft2.transpose()
-            curHessian.pointee.block(0, 2, 2, 2) <<== w * (exp1 + exp2 + exp3)
-            curHessian.pointee.block(2, 0, 2, 2) <<== curHessian.pointee.block(0, 2, 2, 2).transpose()
+            let exp13: Mat2d = d2Left12 * rightTerm + dLeft1 * dRight2.transpose()
+            let exp14: Mat2d = mat2dIdentity * d2Right12 * leftTerm
+            let exp15: Mat2d = dRight1 * dLeft2.transpose()
+            let result1: Mat2d = w * (exp13 + exp14 + exp15)
+            curHessian.pointee.block(0, 2, 2, 2) <<== result1
+            curHessian.pointee.block(2, 0, 2, 2) <<== result1.transpose()
             
             let d2Left13: Mat2d = dAreaRatio_div_dArea_mult * edge_oppo1_Ortho * edge_oppo3_Ortho.transpose() +
                                   areaRatio * (-dOrtho_div_dU)
             let d2Right13: Double = (e0dote1_div_dbAreaSq - e0SqLen_div_dbAreaSq)
-            exp1 = d2Left13 * rightTerm + dLeft1 * dRight3.transpose()
-            exp2 = Mat2d.Identity() * d2Right13 * leftTerm
-            exp3 = dRight1 * dLeft3.transpose()
-            curHessian.pointee.block(0, 4, 2, 2) <<== w * (exp1 + exp2 + exp3)
-            curHessian.pointee.block(4, 0, 2, 2) <<== curHessian.pointee.block(0, 4, 2, 2).transpose()
+            let exp16: Mat2d = d2Left13 * rightTerm + dLeft1 * dRight3.transpose()
+            let exp17: Mat2d = mat2dIdentity * d2Right13 * leftTerm
+            let exp18: Mat2d = dRight1 * dLeft3.transpose()
+            let result2: Mat2d = w * (exp16 + exp17 + exp18)
+            curHessian.pointee.block(0, 4, 2, 2) <<== result2
+            curHessian.pointee.block(4, 0, 2, 2) <<== result2.transpose()
             
             // compute second order derivatives for g_U2
             let d2Left22: Mat2d = dAreaRatio_div_dArea_mult * edge_oppo2_Ortho * edge_oppo2_Ortho.transpose()
             let d2Right22 = e1SqLen_div_dbAreaSq
-            exp1 = d2Left22 * rightTerm + dLeft2 * dRight2.transpose()
-            exp2 = Mat2d.Identity() * d2Right22 * leftTerm
-            exp3 = dRight2 * dLeft2.transpose()
-            curHessian.pointee.block(2, 2, 2, 2) <<== w * (exp1 + exp2 + exp3)
+            let exp4 = d2Left22 * rightTerm + dLeft2 * dRight2.transpose()
+            let exp5 = mat2dIdentity * d2Right22 * leftTerm
+            let exp6 = dRight2 * dLeft2.transpose()
+            curHessian.pointee.block(2, 2, 2, 2) <<== w * (exp4 + exp5 + exp6)
             
             let d2Left23: Mat2d = dAreaRatio_div_dArea_mult * edge_oppo2_Ortho * edge_oppo3_Ortho.transpose() +
                 areaRatio * dOrtho_div_dU
             let d2Right23: Double = -e0dote1_div_dbAreaSq
-            exp1 = d2Left23 * rightTerm + dLeft2 * dRight3.transpose()
-            exp2 = Mat2d.Identity() * d2Right23 * leftTerm
-            exp3 = dRight2 * dLeft3.transpose()
-            curHessian.pointee.block(2, 4, 2, 2) <<== w * (exp1 + exp2 + exp3)
-            curHessian.pointee.block(4, 2, 2, 2) <<== curHessian.pointee.block(2, 4, 2, 2).transpose()
+            let exp7 = d2Left23 * rightTerm + dLeft2 * dRight3.transpose()
+            let exp8 = mat2dIdentity * d2Right23 * leftTerm
+            let exp9 = dRight2 * dLeft3.transpose()
+            let result3 = w * (exp7 + exp8 + exp9)
+            curHessian.pointee.block(2, 4, 2, 2) <<== result3
+            curHessian.pointee.block(4, 2, 2, 2) <<== result3.transpose()
             
             // compute second order derivatives for g_U3
             let d2Left33: Mat2d = dAreaRatio_div_dArea_mult * edge_oppo3_Ortho * edge_oppo3_Ortho.transpose()
             let d2Right33: Double = e0SqLen_div_dbAreaSq
-            exp1 = d2Left33 * rightTerm + dLeft3 * dRight3.transpose()
-            exp2 = Mat2d.Identity() * d2Right33 * leftTerm
-            exp3 = dRight3 * dLeft3.transpose()
-            curHessian.pointee.block(4, 4, 2, 2) <<== w * (exp1 + exp2 + exp3)
+            let exp10 = d2Left33 * rightTerm + dLeft3 * dRight3.transpose()
+            let exp11 = mat2dIdentity * d2Right33 * leftTerm
+            let exp12 = dRight3 * dLeft3.transpose()
+            curHessian.pointee.block(4, 4, 2, 2) <<== w * (exp10 + exp11 + exp12)
             
             // project to nearest SPD matrix
             do {
@@ -372,7 +377,7 @@ import Matrix
         let normalizer_div: Double = data.surfaceArea
         
         Hessian.resize(data.V.rows * 2, data.V.rows * 2)
-        Hessian.setZero()
+        //Hessian.setZero()
         
         //var triHessians: [Matd] = .init(repeating: Matd(6, 6), count: data.F.rows)
         let triHessians: UnsafeMutablePointer<Matd> = .allocate(capacity: data.F.rows)
@@ -442,16 +447,18 @@ import Matrix
             let d2Right12: Double = (e0dote1_div_dbAreaSq - e1SqLen_div_dbAreaSq)
             exp1 = (d2Left12 * rightTerm) + (dLeft1 * dRight2.transpose())
             exp2 = Mat2d.Identity() * d2Right12 * leftTerm
-            curHessian.pointee.block(0, 2, 2, 2) <<== w * (exp1 + exp2 + dRight1 * dLeft2.transpose())
-            curHessian.pointee.block(2, 0, 2, 2) <<== curHessian.pointee.block(0, 2, 2, 2).transpose()
+            let result1 = w * (exp1 + exp2 + dRight1 * dLeft2.transpose())
+            curHessian.pointee.block(0, 2, 2, 2) <<== result1
+            curHessian.pointee.block(2, 0, 2, 2) <<== result1.transpose()
             
             let d2Left13: Mat2d = dAreaRatio_div_dArea_mult * edge_oppo1_Ortho * edge_oppo3_Ortho.transpose() +
                 areaRatio * (-dOrtho_div_dU)
             let d2Right13: Double = (e0dote1_div_dbAreaSq - e0SqLen_div_dbAreaSq)
             exp1 = d2Left13 * rightTerm + dLeft1 * dRight3.transpose()
             exp2 = Mat2d.Identity() * d2Right13 * leftTerm
-            curHessian.pointee.block(0, 4, 2, 2) <<== w * (exp1 + exp2 + dRight1 * dLeft3.transpose())
-            curHessian.pointee.block(4, 0, 2, 2) <<== curHessian.pointee.block(0, 4, 2, 2).transpose()
+            let result2 = w * (exp1 + exp2 + dRight1 * dLeft3.transpose())
+            curHessian.pointee.block(0, 4, 2, 2) <<== result2
+            curHessian.pointee.block(4, 0, 2, 2) <<== result2.transpose()
             
             // compute second order derivatives for g_U2
             let d2Left22: Mat2d = dAreaRatio_div_dArea_mult * edge_oppo2_Ortho * edge_oppo2_Ortho.transpose()
@@ -466,8 +473,9 @@ import Matrix
             exp1 = d2Left23 * rightTerm + dLeft2 * dRight3.transpose()
             exp2 = Mat2d.Identity() * d2Right23 * leftTerm
             exp3 = dRight2 * dLeft3.transpose()
-            curHessian.pointee.block(2, 4, 2, 2) <<== w * (exp1 + exp2 + exp3)
-            curHessian.pointee.block(4, 2, 2, 2) <<== curHessian.pointee.block(2, 4, 2, 2).transpose()
+            let result3 = w * (exp1 + exp2 + exp3)
+            curHessian.pointee.block(2, 4, 2, 2) <<== result3
+            curHessian.pointee.block(4, 2, 2, 2) <<== result3.transpose()
             
             // compute second order derivatives for g_U3
             let d2Left33: Mat2d = dAreaRatio_div_dArea_mult * edge_oppo3_Ortho * edge_oppo3_Ortho.transpose()

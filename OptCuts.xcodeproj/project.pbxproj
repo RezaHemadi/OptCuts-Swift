@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F50C93F72ADB26C8003D9AD8 /* OPSparseMatrix.swift in Sources */ = {isa = PBXBuildFile; fileRef = F50C93F62ADB26C8003D9AD8 /* OPSparseMatrix.swift */; };
 		F532991B2A49F0D5009358E7 /* cut_to_disk.swift in Sources */ = {isa = PBXBuildFile; fileRef = F532991A2A49F0D5009358E7 /* cut_to_disk.swift */; };
 		F532991F2A4B2461009358E7 /* IglUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = F532991E2A4B2461009358E7 /* IglUtils.swift */; };
 		F552D0BB2AD98BF6003C72A0 /* Functions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F552D0BA2AD98BF6003C72A0 /* Functions.swift */; };
@@ -67,6 +68,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		F50C93F62ADB26C8003D9AD8 /* OPSparseMatrix.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OPSparseMatrix.swift; sourceTree = "<group>"; };
 		F532991A2A49F0D5009358E7 /* cut_to_disk.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = cut_to_disk.swift; sourceTree = "<group>"; };
 		F532991E2A4B2461009358E7 /* IglUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IglUtils.swift; sourceTree = "<group>"; };
 		F552D0BA2AD98BF6003C72A0 /* Functions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Functions.swift; sourceTree = "<group>"; };
@@ -150,6 +152,7 @@
 				F5E793282AD8921F004FCCBB /* parameterize.swift */,
 				F552D0BA2AD98BF6003C72A0 /* Functions.swift */,
 				F552D0BF2AD99693003C72A0 /* IO.swift */,
+				F50C93F62ADB26C8003D9AD8 /* OPSparseMatrix.swift */,
 			);
 			path = OptCuts;
 			sourceTree = "<group>";
@@ -326,6 +329,7 @@
 				F532991B2A49F0D5009358E7 /* cut_to_disk.swift in Sources */,
 				F5B8A75E2A41BA6000D47C82 /* CHOLMODSolver.swift in Sources */,
 				F5B8A7702A41BC0D00D47C82 /* Types.swift in Sources */,
+				F50C93F72ADB26C8003D9AD8 /* OPSparseMatrix.swift in Sources */,
 				F5B8A7602A41BA9400D47C82 /* EigenLibSolver.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

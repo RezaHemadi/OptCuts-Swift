@@ -10,7 +10,7 @@ import Matrix
 import MetalKit
 import GeometryProcessing
 
-public func parameterize(device: MTLDevice, inputV: Matd, inputF: Mati, inputN: Matd, p_method: OptCuts.MethodType = .MT_OPTCUTS, p_lambda: Double?, p_upperBound: Double?, bijective: Bool = true, p_initCut: Int = 0) -> Data {
+public func parameterize(device: MTLDevice, inputV: Matd, inputF: Mati, inputN: Matd, p_method: OptCuts.MethodType = .MT_OPTCUTS, p_lambda: Double?, p_upperBound: Double?, bijective: Bool = true, p_initCut: Int = 0, scaleUV: Bool) -> Data {
     start = DispatchTime.now()
     E_se_bestFeasible = Double.greatestFiniteMagnitude
     
@@ -300,7 +300,9 @@ public func parameterize(device: MTLDevice, inputV: Matd, inputF: Mati, inputN: 
     print("optimization took \(secs) seconds.")
     
     let triMesh = triSoup[channel_result]
-    return triMesh.saveAsMesh(F0: F, scaleUV: true)
+    let data = triMesh.saveAsMesh(F0: F, scaleUV: scaleUV)
+    cleanup()
+    return data
 }
 
 public func parameterize(device: MTLDevice, inputURL: URL, p_method: OptCuts.MethodType = .MT_OPTCUTS, p_lambda: Double?, p_upperBound: Double?, bijective: Bool = true, p_initCut: Int = 0) -> Data {
@@ -614,5 +616,7 @@ public func parameterize(device: MTLDevice, inputURL: URL, p_method: OptCuts.Met
     print("optimization took \(secs) seconds.")
     
     let triMesh = triSoup[channel_result]
-    return triMesh.saveAsMesh(F0: F, scaleUV: true)
+    let data = triMesh.saveAsMesh(F0: F, scaleUV: true)
+    cleanup()
+    return data
 }

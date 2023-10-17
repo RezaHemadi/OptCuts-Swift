@@ -15,7 +15,8 @@ class EigenLibSolver<vectorTypeI: Vector, vectorTypeS: Vector>: LinSysSolver<vec
     private var useDense: Bool = false
     private var coefMtr_dense: Mat<Double> = .init()
     private var LDLT: LDLT = .init()
-    private var coefMtr: SparseMatrix<Double> = .init()
+    //private var coefMtr: SparseMatrix<Double> = .init()
+    private var coefMtr: OPSparseMatrix = .init()
     private var simplicalLDLT: SimplicalLDLT = .init()
     
     // MARK: - Methods
@@ -37,12 +38,20 @@ class EigenLibSolver<vectorTypeI: Vector, vectorTypeS: Vector>: LinSysSolver<vec
             super.set_pattern(vNeighbor, fixedVert)
             
             // TODO: directly save into mtr
+            //coefMtr.resize(numRows, numRows)
+            //coefMtr.reserve(ja.count)
+            
+            
+            //coefMtr.size = [numRows, numRows]
             coefMtr.resize(numRows, numRows)
-            coefMtr.reserve(ja.count)
             ia.array() -= 1
             ja.array() -= 1
-            coefMtr.setInnerIndices(ja.values)
-            coefMtr.setOuterIndices(ia.values)
+            
+            //coefMtr.setInnerIndices(ja.values)
+            //coefMtr.setOuterIndices(ia.values)
+            
+            coefMtr.setInnerIndices(ja.valuesPtr.pointer, count: ja.count)
+            coefMtr.setOuterIndices(ia.valuesPtr.pointer, count: ia.count)
         }
     }
     
@@ -50,7 +59,8 @@ class EigenLibSolver<vectorTypeI: Vector, vectorTypeS: Vector>: LinSysSolver<vec
         if (useDense) {
             coefMtr_dense = Matd(mtr)
         } else {
-            coefMtr = mtr
+            fatalError()
+            //coefMtr = mtr
         }
     }
     
@@ -67,16 +77,14 @@ class EigenLibSolver<vectorTypeI: Vector, vectorTypeS: Vector>: LinSysSolver<vec
             super.update_a(II, JJ, SS)
             
             // TODO: directly save into coefMtr
-            coefMtr.setValues(a.values)
+            //coefMtr.setValues(a.values)
+            coefMtr.setValues(values: a.valuesPtr.pointer, count: a.count)
         }
     }
     
     override func analyze_pattern() {
         if (!useDense) {
-            //simplicalLDLT.analyzePattern(coefMtr)
-            //simplicalLDLT = .init()
-            //simplicalLDLT = .init()
-            //simplicalLDLT.factorize(coefMtr)
+            simplicalLDLT.analyzePattern(coefMtr)
             assert(simplicalLDLT.info == .success)
         }
     }
@@ -119,7 +127,8 @@ class EigenLibSolver<vectorTypeI: Vector, vectorTypeS: Vector>: LinSysSolver<vec
         // TODO: useDense
         // TODO: directly manipulate valuesPtr without a
         super.setZero()
-        coefMtr.setValues(a.values)
+        fatalError()
+        //coefMtr.setValues(a.values)
     }
     
     override func setCoeff(_ rowI: Int, _ colI: Int, _ val: Double) {

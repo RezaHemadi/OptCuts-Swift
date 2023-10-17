@@ -29,8 +29,8 @@ import GeometryProcessing
         
         airMesh = .init()
         
-        var UV_bnds: Mat<Double> = .init(UV_bnds, UV_bnds.rows, UV_bnds.cols)
-        var E: Mat<Int> = .init(E, E.rows, E.cols)
+        var UV_bnds: Mat<Double> = UV_bnds
+        var E: Mat<Int> = E
         
         assert(E.rows == UV_bnds.rows)
         
@@ -255,7 +255,7 @@ import GeometryProcessing
                                    _ w_scaf: Double) {
         
         assert(w_scaf > 0.0)
-        
+         
         let P_oldRows: Int = P.rows
         P.conservativeResize(wholeMeshSize * 2, wholeMeshSize * 2)
         P.rightCols(P.rows - P_oldRows).setZero()
@@ -304,17 +304,13 @@ import GeometryProcessing
     
      func mergeVNeighbor(_ vNeighbor_mesh: [Set<Int>],
                         _ vNeighbor: inout [Set<Int>]) {
-        
-        vNeighbor = vNeighbor_mesh
+         vNeighbor.removeAll(keepingCapacity: true)
+         vNeighbor.append(contentsOf: vNeighbor_mesh)
+        //vNeighbor = vNeighbor_mesh
         vNeighbor.conservativeResize(to: wholeMeshSize)
         // TODO: Make parallel
-        /*
-        DispatchQueue.concurrentPerform(iterations: airMesh.vNeighbor.count) { [self] scafVI in
-            for nb_scafVI in airMesh.vNeighbor[scafVI] {
-                vNeighbor[localVI2Global[scafVI]].insert(localVI2Global[nb_scafVI])
-            }
-        }*/
         
+         
         for scafVI in 0..<airMesh.vNeighbor.count {
             for nb_scafVI in airMesh.vNeighbor[scafVI] {
                 vNeighbor[localVI2Global[scafVI]].insert(localVI2Global[nb_scafVI])

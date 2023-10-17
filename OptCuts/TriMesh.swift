@@ -483,7 +483,7 @@ class TriMesh {
             vertNormals[i].normalize()
         }
         
-        computeLabpaciamMtr()
+        //computeLabpaciamMtr()
         
         bbox.block(0, 0, 1, 3) <<== V_rest.row(0)
         bbox.block(1, 0, 1, 3) <<== V_rest.row(0)
@@ -935,9 +935,9 @@ class TriMesh {
                 // find inequality constraints by opposite edge in incident triangles
                 var inequalityConsMtr = Matd()
                 var inequalityConsVec = Vec<Double>()
-                for triI in 0..<triangles.count {
-                    let triI: Int = triangles[triI]
-                    let vI_toMerge: Int = ((triI < firstVertIncTriAmt) ? cohE[cohI, 1 - forkVI] : cohE[cohI, 3 - forkVI])
+                for triII in 0..<triangles.count {
+                    let triI: Int = triangles[triII]
+                    let vI_toMerge: Int = ((triII < firstVertIncTriAmt) ? cohE[cohI, 1 - forkVI] : cohE[cohI, 3 - forkVI])
                     for i in 0..<3 {
                         if (F[triI, i] == vI_toMerge) {
                             let v1: RVec2d = V.row(F[triI, (i + 1) % 3])
@@ -963,7 +963,7 @@ class TriMesh {
                         var res: Double = inequalityConsMtr.row(consI).dot(mergedPos) - inequalityConsVec[consI]
                         if (res > -eps_IC) {
                             // project
-                            mergedPos -= ((res + eps_IC) * inequalityConsMtr.row(consI).transpose())
+                            mergedPos -= ((res + eps_IC) * inequalityConsMtr.row(consI))
                         }
                         if (res > maxRes) {
                             maxRes = res
@@ -1020,8 +1020,8 @@ class TriMesh {
                    _ propogate: Bool) -> Bool {
         var localEwDec_max: Double = .zero
         var path_max: [Int] = []
-        var newVertPos_max: Matd!
-        var energyChanges_max: Pair<Double, Double>!
+         var newVertPos_max: Matd = .init()
+         var energyChanges_max: Pair<Double, Double> = .init(.zero, .zero)
         queryMerge(lambda, propogate, &localEwDec_max, &path_max, &newVertPos_max, &energyChanges_max)
         
         print("E_dec threshold = \(EDecThres)")
