@@ -29,8 +29,8 @@ import GeometryProcessing
         
         airMesh = .init()
         
-        var UV_bnds: Mat<Double> = UV_bnds
-        var E: Mat<Int> = E
+         var UV_bnds: Mat<Double> = .init(UV_bnds, UV_bnds.rows, UV_bnds.cols)
+         var E: Mat<Int> = .init(E, E.rows, E.cols)
         
         assert(E.rows == UV_bnds.rows)
         

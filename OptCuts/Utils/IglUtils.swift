@@ -557,7 +557,7 @@ extension Matrix where Element: Equatable {
         // Segments not intersecting
         return false
     }
-    
+    /*
      static func addThickEdge<M1: Matrix, M2: Matrix, M3: Matrix, M4: Matrix>
     (_ V: inout M1, _ F: inout M2, _ UV: inout M3, _ seamColor: inout M4, _ color: RVec3d, _ v0: RVec3d, _ v1: RVec3d, _ halfWidth: Double, _ textScale: Double, _ UVorSurface: Bool = false, _ normal: RVec3d = RVec3d())
     where M1.Element == Double, M2.Element == Int, M3.Element == Double, M4.Element == Double {
@@ -595,7 +595,7 @@ extension Matrix where Element: Equatable {
             seamColor.conservativeResize(seamColor.rows + 2, 3)
             seamColor.bottomRows(2) <<== [color, color]
         }
-    }
+    }*/
     
      static func saveMesh_Seamster<MV: Matrix, MF: Matrix>
     (_ filePath: String, _ V: MV, _ F: MF)

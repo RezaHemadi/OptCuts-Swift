@@ -10,7 +10,7 @@ import Matrix
 import Accelerate
 
 class OPSparseMatrix {
-    static private let AllocateCount: Int = 100_000
+    static private let AllocateCount: Int = 400_000
     // MARK: - Properties
     var innerIndices: UnsafeMutablePointer<Int32>!
     var outerStarts: UnsafeMutablePointer<Int>!
@@ -39,14 +39,17 @@ class OPSparseMatrix {
     }
     
     func setInnerIndices(_ indices: UnsafeMutablePointer<Int>, count: Int) {
+        assert(count <= Self.AllocateCount)
         // TODO: test concurrent
+        /*
         DispatchQueue.concurrentPerform(iterations: count) { i in
             (innerIndices + i).initialize(to: Int32(indices[i]))
-        }
-        /*
-        for i in 0..<count {
-            (innerIndices + i).initialize(to: Int32(indices[i]))
         }*/
+        
+        for i in 0..<count {
+            //(innerIndices + i).initialize(to: Int32(indices[i]))
+            innerIndices[i] = Int32(indices[i])
+        }
     }
     
     func setValues(values: UnsafeMutablePointer<Double>, count: Int) {

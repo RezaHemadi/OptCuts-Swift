@@ -13,7 +13,6 @@
 		F552D0BB2AD98BF6003C72A0 /* Functions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F552D0BA2AD98BF6003C72A0 /* Functions.swift */; };
 		F552D0C02AD99693003C72A0 /* IO.swift in Sources */ = {isa = PBXBuildFile; fileRef = F552D0BF2AD99693003C72A0 /* IO.swift */; };
 		F56A52442A446554007CA4FB /* GeometryProcessing.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F56A52422A44654E007CA4FB /* GeometryProcessing.framework */; };
-		F56A52452A446554007CA4FB /* GeometryProcessing.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = F56A52422A44654E007CA4FB /* GeometryProcessing.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		F56A52492A458732007CA4FB /* Shared.swift in Sources */ = {isa = PBXBuildFile; fileRef = F56A52482A458732007CA4FB /* Shared.swift */; };
 		F5B8A7522A41B3DE00D47C82 /* OptCuts.docc in Sources */ = {isa = PBXBuildFile; fileRef = F5B8A7512A41B3DE00D47C82 /* OptCuts.docc */; };
 		F5B8A7532A41B3DE00D47C82 /* OptCuts.h in Headers */ = {isa = PBXBuildFile; fileRef = F5B8A7502A41B3DE00D47C82 /* OptCuts.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -28,7 +27,6 @@
 		F5B8A76E2A41BBEA00D47C82 /* TriMesh.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5B8A76D2A41BBEA00D47C82 /* TriMesh.swift */; };
 		F5B8A7702A41BC0D00D47C82 /* Types.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5B8A76F2A41BC0D00D47C82 /* Types.swift */; };
 		F5B8A7782A41BDCE00D47C82 /* Matrix.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F5B8A7772A41BDC800D47C82 /* Matrix.framework */; };
-		F5B8A7792A41BDCE00D47C82 /* Matrix.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = F5B8A7772A41BDC800D47C82 /* Matrix.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		F5B8A77C2A41FDFB00D47C82 /* Primitive.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5B8A77B2A41FDFB00D47C82 /* Primitive.swift */; };
 		F5B8A77E2A422AEF00D47C82 /* Pair.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5B8A77D2A422AEF00D47C82 /* Pair.swift */; };
 		F5DB6F0F2A9F746F00E2337F /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5DB6F0E2A9F746F00E2337F /* Utilities.swift */; };
@@ -51,21 +49,6 @@
 			remoteInfo = Matrix;
 		};
 /* End PBXContainerItemProxy section */
-
-/* Begin PBXCopyFilesBuildPhase section */
-		F5B8A77A2A41BDCE00D47C82 /* Embed Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-				F5B8A7792A41BDCE00D47C82 /* Matrix.framework in Embed Frameworks */,
-				F56A52452A446554007CA4FB /* GeometryProcessing.framework in Embed Frameworks */,
-			);
-			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		F50C93F62ADB26C8003D9AD8 /* OPSparseMatrix.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OPSparseMatrix.swift; sourceTree = "<group>"; };
@@ -225,7 +208,6 @@
 				F5B8A7492A41B3DE00D47C82 /* Sources */,
 				F5B8A74A2A41B3DE00D47C82 /* Frameworks */,
 				F5B8A74B2A41B3DE00D47C82 /* Resources */,
-				F5B8A77A2A41BDCE00D47C82 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);

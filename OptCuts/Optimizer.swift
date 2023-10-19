@@ -9,7 +9,7 @@ import Foundation
 import Matrix
 import GeometryProcessing
 
-private let HessianCoefMaxCount: Int = 50_000
+private let HessianCoefMaxCount: Int = 400_000
 
 /// A class for solving an optimization problem
  class Optimizer {
@@ -622,7 +622,7 @@ private let HessianCoefMaxCount: Int = 50_000
         if (!mute) {
             //print("\(stepSize) \"(armijo)\"")
         }
-        
+        /*
         while (!result.checkInversion() || (scaffolding && !scaffold.airMesh.checkInversion() )) {
             assert(false, "element inversion after armijo shouldn't happen!")
             
@@ -635,7 +635,7 @@ private let HessianCoefMaxCount: Int = 50_000
             
             stepForward(resultV0, scaffoldV0, &result, scaffold, stepSize)
             computeEnergyVal(result, scaffold, &testingE)
-        }
+        }*/
         
         lastEDec = lastEnergyVal - testingE
         if (scaffolding) {
