@@ -10,7 +10,7 @@ import Matrix
 import MetalKit
 import GeometryProcessing
 
-public func parameterize(device: MTLDevice, inputV: Matd, inputF: Mati, inputN: Matd, p_method: OptCuts.MethodType = .MT_OPTCUTS, p_lambda: Double?, p_upperBound: Double?, bijective: Bool = true, p_initCut: Int = 0, scaleUV: Bool) -> Data {
+public func parameterize(device: MTLDevice, inputV: Matd, inputF: Mati, inputN: Matd, p_method: OptCuts.MethodType = .MT_OPTCUTS, p_lambda: Double?, p_upperBound: Double?, bijective: Bool = true, p_initCut: Int = 0, scaleUV: Bool) throws -> Data {
     start = DispatchTime.now()
     E_se_bestFeasible = Double.greatestFiniteMagnitude
     
@@ -24,11 +24,15 @@ public func parameterize(device: MTLDevice, inputV: Matd, inputF: Mati, inputN: 
     
     vertAmt_input = V.rows
     var B = Vec<Int>()
-    let isManifold = is_vertex_manifold(F, &B) && is_edge_manifold(F)
+    let isVertexManifold = is_vertex_manifold(F, &B)
+    let isEdgeManifold = is_edge_manifold(F)
+    let isManifold = isVertexManifold && isEdgeManifold
     if (!isManifold) {
-        print("input mesh contains non-manifold edges or vertices")
-        print("please cleanup the mesh and retry")
-        exit(EXIT_FAILURE)
+        if !isVertexManifold {
+            throw OptCutsError.nonManifoldVertex
+        } else {
+            throw OptCutsError.nonManifoldEdge
+        }
     }
     
     // Set lambda
@@ -275,7 +279,7 @@ public func parameterize(device: MTLDevice, inputV: Matd, inputF: Mati, inputN: 
     energyParams.append(newParam)
     energyTerms.append(SymDirichletEnergy())
     
-    optimizer = Optimizer(triSoup[0], energyTerms, energyParams, 0, false, bijectiveParam && !rand1PinitCut) // for random one point initial cut, don't need air meshes in the beginning since it's impossible for a quad to itself
+    optimizer = try Optimizer(triSoup[0], energyTerms, energyParams, 0, false, bijectiveParam && !rand1PinitCut) // for random one point initial cut, don't need air meshes in the beginning since it's impossible for a quad to itself
     
     optimizer.precompute()
     triSoup.append(optimizer.getResult())
@@ -305,7 +309,7 @@ public func parameterize(device: MTLDevice, inputV: Matd, inputF: Mati, inputN: 
     return data
 }
 
-public func parameterize(device: MTLDevice, inputURL: URL, p_method: OptCuts.MethodType = .MT_OPTCUTS, p_lambda: Double?, p_upperBound: Double?, bijective: Bool = true, p_initCut: Int = 0) -> Data {
+public func parameterize(device: MTLDevice, inputURL: URL, p_method: OptCuts.MethodType = .MT_OPTCUTS, p_lambda: Double?, p_upperBound: Double?, bijective: Bool = true, p_initCut: Int = 0) throws -> Data {
     start = DispatchTime.now()
     E_se_bestFeasible = Double.greatestFiniteMagnitude
     
@@ -328,11 +332,15 @@ public func parameterize(device: MTLDevice, inputURL: URL, p_method: OptCuts.Met
     
     vertAmt_input = V.rows
     var B = Vec<Int>()
-    let isManifold = is_vertex_manifold(F, &B) && is_edge_manifold(F)
+    let isVertexManifold = is_vertex_manifold(F, &B)
+    let isEdgeManifold = is_edge_manifold(F)
+    let isManifold = isVertexManifold && isEdgeManifold
     if (!isManifold) {
-        print("input mesh contains non-manifold edges or vertices")
-        print("please cleanup the mesh and retry")
-        exit(EXIT_FAILURE)
+        if !isVertexManifold {
+            throw OptCutsError.nonManifoldVertex
+        } else {
+            throw OptCutsError.nonManifoldEdge
+        }
     }
     
     // Set lambda
@@ -591,7 +599,7 @@ public func parameterize(device: MTLDevice, inputURL: URL, p_method: OptCuts.Met
     energyParams.append(newParam)
     energyTerms.append(SymDirichletEnergy())
     
-    optimizer = Optimizer(triSoup[0], energyTerms, energyParams, 0, false, bijectiveParam && !rand1PinitCut) // for random one point initial cut, don't need air meshes in the beginning since it's impossible for a quad to itself
+    optimizer = try Optimizer(triSoup[0], energyTerms, energyParams, 0, false, bijectiveParam && !rand1PinitCut) // for random one point initial cut, don't need air meshes in the beginning since it's impossible for a quad to itself
     
     optimizer.precompute()
     triSoup.append(optimizer.getResult())

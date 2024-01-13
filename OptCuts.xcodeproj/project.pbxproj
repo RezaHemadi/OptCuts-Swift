@@ -10,6 +10,7 @@
 		F50C93F72ADB26C8003D9AD8 /* OPSparseMatrix.swift in Sources */ = {isa = PBXBuildFile; fileRef = F50C93F62ADB26C8003D9AD8 /* OPSparseMatrix.swift */; };
 		F532991B2A49F0D5009358E7 /* cut_to_disk.swift in Sources */ = {isa = PBXBuildFile; fileRef = F532991A2A49F0D5009358E7 /* cut_to_disk.swift */; };
 		F532991F2A4B2461009358E7 /* IglUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = F532991E2A4B2461009358E7 /* IglUtils.swift */; };
+		F549FAEE2B4FADA200EB30B8 /* OptCutsError.swift in Sources */ = {isa = PBXBuildFile; fileRef = F549FAED2B4FADA200EB30B8 /* OptCutsError.swift */; };
 		F552D0BB2AD98BF6003C72A0 /* Functions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F552D0BA2AD98BF6003C72A0 /* Functions.swift */; };
 		F552D0C02AD99693003C72A0 /* IO.swift in Sources */ = {isa = PBXBuildFile; fileRef = F552D0BF2AD99693003C72A0 /* IO.swift */; };
 		F56A52442A446554007CA4FB /* GeometryProcessing.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F56A52422A44654E007CA4FB /* GeometryProcessing.framework */; };
@@ -54,6 +55,7 @@
 		F50C93F62ADB26C8003D9AD8 /* OPSparseMatrix.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OPSparseMatrix.swift; sourceTree = "<group>"; };
 		F532991A2A49F0D5009358E7 /* cut_to_disk.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = cut_to_disk.swift; sourceTree = "<group>"; };
 		F532991E2A4B2461009358E7 /* IglUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IglUtils.swift; sourceTree = "<group>"; };
+		F549FAED2B4FADA200EB30B8 /* OptCutsError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptCutsError.swift; sourceTree = "<group>"; };
 		F552D0BA2AD98BF6003C72A0 /* Functions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Functions.swift; sourceTree = "<group>"; };
 		F552D0BF2AD99693003C72A0 /* IO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IO.swift; sourceTree = "<group>"; };
 		F56A523C2A44654E007CA4FB /* GeometryProcessing.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = GeometryProcessing.xcodeproj; path = ../GeometryProcessing/GeometryProcessing.xcodeproj; sourceTree = "<group>"; };
@@ -136,6 +138,7 @@
 				F552D0BA2AD98BF6003C72A0 /* Functions.swift */,
 				F552D0BF2AD99693003C72A0 /* IO.swift */,
 				F50C93F62ADB26C8003D9AD8 /* OPSparseMatrix.swift */,
+				F549FAED2B4FADA200EB30B8 /* OptCutsError.swift */,
 			);
 			path = OptCuts;
 			sourceTree = "<group>";
@@ -297,6 +300,7 @@
 				F5B8A76E2A41BBEA00D47C82 /* TriMesh.swift in Sources */,
 				F552D0C02AD99693003C72A0 /* IO.swift in Sources */,
 				F5B8A7622A41BADB00D47C82 /* LinSysSolver.swift in Sources */,
+				F549FAEE2B4FADA200EB30B8 /* OptCutsError.swift in Sources */,
 				F5B8A75C2A41BA1D00D47C82 /* SymDirichletEnergy.swift in Sources */,
 				F5B8A77E2A422AEF00D47C82 /* Pair.swift in Sources */,
 				F5B8A7642A41BAFD00D47C82 /* PardisoSolver.swift in Sources */,

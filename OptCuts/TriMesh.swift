@@ -1686,6 +1686,14 @@ class TriMesh {
         return true
     }
     
+    func checkInversion() throws {
+        for triI in 0..<F.rows {
+            if !checkInversion(triI, true) {
+                throw OptCutsError.elementInversion(triI)
+            }
+        }
+    }
+    
     // Helper functions
      func computeLabpaciamMtr() {
         let L: SparseMatrix<Double> = cotmatrix(V_rest, F)
@@ -2590,7 +2598,7 @@ class TriMesh {
             param.deallocate()
         }
         
-        let optimizer = Optimizer(localMesh, energyTerms, energyParams, 0, true, scaffold != nil, UV_bnds, E, bnd, true)
+        let optimizer = try! Optimizer(localMesh, energyTerms, energyParams, 0, true, scaffold != nil, UV_bnds, E, bnd, true)
         optimizer.precompute()
         
         optimizer.setRelGL2Tol(1.0e-6)
@@ -2726,7 +2734,7 @@ class TriMesh {
         defer {
             param.deallocate()
         }
-        let optimizer = Optimizer(localMesh, energyTerms, energyParams, 0, true, isBijective, UV_bnds, E, bnd, true)
+        let optimizer = try! Optimizer(localMesh, energyTerms, energyParams, 0, true, isBijective, UV_bnds, E, bnd, true)
         optimizer.precompute()
         optimizer.setRelGL2Tol(1.0e-6)
         optimizer.solve(maxIter) // do not output, the other part
@@ -2850,7 +2858,7 @@ class TriMesh {
         defer {
             param.deallocate()
         }
-        let optimizer = Optimizer(localMesh, energyTerms, energyParams, 0, true, isBijective, UV_bnds, E, bnd, true)
+        let optimizer = try! Optimizer(localMesh, energyTerms, energyParams, 0, true, isBijective, UV_bnds, E, bnd, true)
         optimizer.precompute()
         optimizer.setRelGL2Tol(1.0e-6)
         optimizer.solve(maxIter) // do not output, the other part

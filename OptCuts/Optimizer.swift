@@ -82,7 +82,7 @@ private let HessianCoefMaxCount: Int = 400_000
                 _ UV_bnds: Mat<Double> = Matd(),
                 _ E: Mat<Int> = Mati(),
                 _ bnd: Vec<Int> = Veci(),
-                _ p_useDense: Bool = false) {
+                _ p_useDense: Bool = false) throws {
         
         data0 = p_data0
         energyTerms = p_energyTerms
@@ -105,7 +105,7 @@ private let HessianCoefMaxCount: Int = 400_000
         mute = p_mute
         
         if (!data0.checkInversion()) {
-            exit(-1)
+            try data0.checkInversion()
         }
         
         globalIterNum = 0
