@@ -673,17 +673,18 @@ private let HessianCoefMaxCount: Int = 400_000
         }
         //assert(data.V.rows == result.V.rows)
         
-        /*
+        
         for vI in 0..<data.V.rows {
             data.V[vI, 0] = dataV0[vI, 0] + stepSize * searchDir[vI * 2]
             data.V[vI, 1] = dataV0[vI, 1] + stepSize * searchDir[vI * 2 + 1]
-        }*/
+        }
+         /*
          withUnsafeMutablePointer(to: &data.V) { vPtr in
              DispatchQueue.concurrentPerform(iterations: vPtr.pointee.rows) { vI in
                  vPtr.pointee[vI, 0] = dataV0[vI, 0] + stepSize * searchDir[vI * 2]
                  vPtr.pointee[vI, 1] = dataV0[vI, 1] + stepSize * searchDir[vI * 2 + 1]
              }
-         }
+         }*/
          
         if (scaffolding) {
             scaffoldData.stepForward(scaffoldV0, searchDir, stepSize)

@@ -35,6 +35,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		F553F9222BC416F10006D281 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F5B8A7722A41BDC800D47C82 /* Matrix.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = F5EC90222B94A46800536043;
+			remoteInfo = MatrixTests;
+		};
 		F56A52412A44654E007CA4FB /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = F56A523C2A44654E007CA4FB /* GeometryProcessing.xcodeproj */;
@@ -185,6 +192,7 @@
 			isa = PBXGroup;
 			children = (
 				F5B8A7772A41BDC800D47C82 /* Matrix.framework */,
+				F553F9232BC416F10006D281 /* MatrixTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -264,6 +272,13 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
+		F553F9232BC416F10006D281 /* MatrixTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = MatrixTests.xctest;
+			remoteRef = F553F9222BC416F10006D281 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		F56A52422A44654E007CA4FB /* GeometryProcessing.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;
@@ -457,6 +472,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -491,6 +507,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
